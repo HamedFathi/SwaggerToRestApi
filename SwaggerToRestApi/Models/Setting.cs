@@ -8,6 +8,6 @@ namespace SwaggerToRestApi
         public string ClientClassName { get; set; } = "Client";
         public string CustomComment { get; set; } = "";
         public BearerToken BearerToken { get; set; }
-        public TemplateType TemplateType { get; set; }
+        public TemplateType TemplateType { get; set; } = TemplateType.Fetch;
     }
 }
