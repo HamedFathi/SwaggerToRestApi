@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <Authors>Hamed Fathi</Authors>
+	  <Company />
+	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
+	  <Version>0.0.1</Version>
+	  <PackageProjectUrl>https://github.com/HamedFathi/SwaggerToRestApi</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/HamedFathi/SwaggerToRestApi</RepositoryUrl>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Fluid.Core" Version="2.2.15" />
+		<PackageReference Include="OpenApiExtended" Version="0.0.17" />
+	</ItemGroup>
+</Project>

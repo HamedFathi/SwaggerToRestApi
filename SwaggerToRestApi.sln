@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerToRestApi", "SwaggerToRestApi\SwaggerToRestApi.csproj", "{122C4F07-27DE-4914-9387-86A7A9253A10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{122C4F07-27DE-4914-9387-86A7A9253A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{122C4F07-27DE-4914-9387-86A7A9253A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{122C4F07-27DE-4914-9387-86A7A9253A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{122C4F07-27DE-4914-9387-86A7A9253A10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0EFD5207-9816-44BB-8572-25FC329410F0}
+	EndGlobalSection
+EndGlobal
