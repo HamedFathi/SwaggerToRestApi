@@ -12,6 +12,6 @@
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Fluid.Core" Version="2.2.15" />
-		<PackageReference Include="OpenApiExtended" Version="0.0.22" />
+		<PackageReference Include="OpenApiExtended" Version="0.0.23" />
 	</ItemGroup>
 </Project>
