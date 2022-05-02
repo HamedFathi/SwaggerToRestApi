@@ -1,14 +1,11 @@
 ﻿// ReSharper disable UnusedMember.Global
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fluid;
-using System.Reflection;
 using Microsoft.OpenApi.Models;
 using OpenApiExtended;
 using SwaggerToRestApi.Templates;
-using SharpYaml;
-using System.Numerics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SwaggerToRestApi
 {
@@ -38,6 +35,8 @@ namespace SwaggerToRestApi
                     throw new ArgumentOutOfRangeException();
             }
 
+
+
             var options = new TemplateOptions();
             options.MemberAccessStrategy.Register<Setting>();
 
@@ -45,8 +44,8 @@ namespace SwaggerToRestApi
             var context = new TemplateContext(options);
             context.SetValue("stg", setting);
             context.SetValue("custom_comments", CommentProvider(setting.CustomComment));
-            var result = template.Render(context).Trim();
 
+            var tsData = new List<TypeScriptData>();
             var paths = openApiDocument.Paths;
             foreach (var openApiPath in paths)
             {
@@ -54,22 +53,34 @@ namespace SwaggerToRestApi
                 foreach (var openApiOperation in openApiPath.Value.Operations)
                 {
                     var operationKey = openApiOperation.Key;
-                    var requestBodySchema = openApiOperation.Value.RequestBody?.GetResponsesContent(x =>
-                        x == OpenApiMimeType.ApplicationJson || x == OpenApiMimeType.TextPlain).First().Schema;
-                    var requestBodyTypeScript = requestBodySchema?.ToTypeScript(requestBodySchema.Reference.Id);
+                    var requestBodyContent = openApiOperation.Value.RequestBody?.GetResponsesContent(x =>
+                        x == OpenApiMimeType.ApplicationJson).FirstOrDefault();
+                    var requestBodyTypeScript = requestBodyContent?.Schema.ToTypeScript(requestBodyContent.Schema.Reference?.Id);
+                    if (requestBodyTypeScript != null)
+                    {
+                        tsData.AddRange(requestBodyTypeScript.TypeScriptData);
+                    }
 
                     var responses = openApiOperation.Value.Responses;
                     foreach (var openApiResponse in responses)
                     {
                         var responseKey = openApiResponse.Key;
-                        var responseContent = openApiResponse.Value.GetResponsesContent(x => x == OpenApiMimeType.ApplicationJson || x == OpenApiMimeType.TextPlain).FirstOrDefault();
+                        var responseContent = openApiResponse.Value
+                            .GetResponsesContent(x => x == OpenApiMimeType.ApplicationJson).FirstOrDefault();
                         var responseSchema = responseContent?.Schema;
-
+                        var responseTypeScript = responseSchema?.ToTypeScript(responseSchema.Reference?.Id);
+                        if (responseTypeScript != null)
+                        {
+                            tsData.AddRange(responseTypeScript.TypeScriptData);
+                        }
 
                     }
-
                 }
             }
+
+            context.SetValue("tsData", tsData.ToSourceCode(true));
+
+            var result = template.Render(context).Trim();
 
             return null;
         }
