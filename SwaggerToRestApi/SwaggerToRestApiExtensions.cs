@@ -25,16 +25,18 @@ namespace SwaggerToRestApi
                 {
                     var operationKey = openApiOperation.Key;
                     var requestBodySchema = openApiOperation.Value.RequestBody?.GetResponsesContent(x =>
-                        x == OpenApiMimeType.ApplicationJson).First().Schema;
+                        x == OpenApiMimeType.ApplicationJson || x == OpenApiMimeType.TextPlain).First().Schema;
                     var requestBodyTypeScript = requestBodySchema?.ToTypeScript(requestBodySchema.Reference.Id);
 
                     var responses = openApiOperation.Value.Responses;
                     foreach (var openApiResponse in responses)
                     {
                         var responseKey = openApiResponse.Key;
-                        var responseContent = openApiResponse.Value.GetResponsesContent(x => x == OpenApiMimeType.ApplicationJson || x==OpenApiMimeType.TextPlain);
-                        // var responseSchema = responseContent.Count > 0 ? responseContent.First().Schema : null;
-                        // var responseTypeScript = responseSchema?.ToTypeScript(responseSchema.Reference.Id);
+                        var responseContent = openApiResponse.Value.GetResponsesContent(x => x == OpenApiMimeType.ApplicationJson || x == OpenApiMimeType.TextPlain).FirstOrDefault();
+                        var responseSchema = responseContent?.Schema;
+                        var responseTypeScript = responseSchema?.ToTypeScript(responseSchema.Reference.Id);
+                        
+                        
                     }
 
                 }
